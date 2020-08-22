@@ -220,8 +220,9 @@ void init_motors() {
 
     grbl_msg_sendf(CLIENT_SERIAL, MSG_LEVEL_INFO, "Using StepStick Mode");
 
-    uint8_t ms3_pins[MAX_N_AXIS][2] = { { X_STEPPER_MS3, X2_STEPPER_MS3 }, { Y_STEPPER_MS3, Y2_STEPPER_MS3 }, { Z_STEPPER_MS3, Z2_STEPPER_MS3 },
-                                 { A_STEPPER_MS3, A2_STEPPER_MS3 }, { B_STEPPER_MS3, B2_STEPPER_MS3 }, { C_STEPPER_MS3, C2_STEPPER_MS3 } };
+    uint8_t ms3_pins[MAX_N_AXIS][2] = { { X_STEPPER_MS3, X2_STEPPER_MS3 }, { Y_STEPPER_MS3, Y2_STEPPER_MS3 },
+                                        { Z_STEPPER_MS3, Z2_STEPPER_MS3 }, { A_STEPPER_MS3, A2_STEPPER_MS3 },
+                                        { B_STEPPER_MS3, B2_STEPPER_MS3 }, { C_STEPPER_MS3, C2_STEPPER_MS3 } };
 
     for (int axis = 0; axis < N_AXIS; axis++) {
         for (int gang_index = 0; gang_index < 2; gang_index++) {
@@ -348,12 +349,14 @@ void motors_read_settings() {
 
 // use this to tell all the motors what the current homing mode is
 // They can use this to setup things like Stall
-void motors_set_homing_mode(uint8_t homing_mask, bool isHoming) {
-    grbl_msg_sendf(CLIENT_SERIAL, MSG_LEVEL_INFO, "motors_set_homing_mode(%d)", homing_mask);
+void motors_set_homing_mode(uint8_t homing_mask, bool isHoming) {    
     for (uint8_t gang_index = 0; gang_index < 2; gang_index++) {
         for (uint8_t axis = X_AXIS; axis < N_AXIS; axis++)
-            if (bit(axis) & homing_mask)
-                myMotor[axis][gang_index]->set_homing_mode(homing_mask, isHoming);
+            if (bit(axis) & homing_mask) {
+                if (myMotor[axis][gang_index]->is_active) {                    
+                    myMotor[axis][gang_index]->set_homing_mode(homing_mask, isHoming);
+                }
+            }
     }
 }
 

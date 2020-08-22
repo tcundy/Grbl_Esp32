@@ -33,6 +33,21 @@
     #undef ENABLE_SD_CARD
 #endif
 
+#ifdef HOMING_CYCLE_0
+    #undef HOMING_CYCLE_0
+#endif
+#define HOMING_CYCLE_0 bit(Z_AXIS) // Z first
+
+#ifdef HOMING_CYCLE_1
+    #undef HOMING_CYCLE_1
+#endif
+#define HOMING_CYCLE_1 bit(A_AXIS)
+
+#ifdef HOMING_CYCLE_2
+    #undef HOMING_CYCLE_2
+#endif
+#define HOMING_CYCLE_2 (bit(X_AXIS)|bit(Y_AXIS))
+
 // === Special Features
 
 // I2S (steppers & other output-only pins)
@@ -71,8 +86,8 @@
 
 // Servo in socket #4
 #define A_SERVO_PIN             GPIO_NUM_14
-#define A_SERVO_RANGE_MIN       0.0
-#define A_SERVO_RANGE_MAX       5.0
+#define A_SERVO_RANGE_MIN       1.00
+#define A_SERVO_RANGE_MAX       1.00
 
 
 /*

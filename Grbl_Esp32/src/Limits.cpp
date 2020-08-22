@@ -78,23 +78,23 @@ void limits_go_home(uint8_t cycle_mask) {
     if (sys.abort)
         return;  // Block if system reset has been issued.
     // Initialize plan data struct for homing motion. Spindle and coolant are disabled.
-    motors_set_homing_mode(cycle_mask, true);  // tell motors homing is about to start
-
-    grbl_msg_sendf(CLIENT_SERIAL, MSG_LEVEL_INFO, "limits go home %d", cycle_mask);
+    motors_set_homing_mode(cycle_mask, true);  // tell motors homing is about to start    
 
     uint8_t idx;
-
     // remove any motor that cannot be homed from the mask
     for (idx = 0; idx < N_AXIS; idx++) {
         if (bit_istrue(cycle_mask, bit(idx))) {
-            if (motor_can_home(idx)) {
-                bit_false(idx, cycle_mask);
+            if (!motor_can_home(idx)) {
+                bit_false(cycle_mask, bit(idx));
+                vTaskDelay(1000); // time to move
             }
         }
     }
     // see if we removed all non homing motors
-    if (cycle_mask == 0)
+    if (cycle_mask == 0) {
         return;
+    }
+        
 
     plan_line_data_t  plan_data;
     plan_line_data_t* pl_data = &plan_data;

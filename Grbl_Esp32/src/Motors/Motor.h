@@ -53,7 +53,6 @@ namespace Motors {
 
         motor_class_id_t type_id;
         uint8_t          is_active = false;
-        
 
     protected:
         uint8_t axis_index;       // X_AXIS, etc
