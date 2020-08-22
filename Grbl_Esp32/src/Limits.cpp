@@ -86,7 +86,6 @@ void limits_go_home(uint8_t cycle_mask) {
         if (bit_istrue(cycle_mask, bit(idx))) {
             if (!motor_can_home(idx)) {
                 bit_false(cycle_mask, bit(idx));
-                vTaskDelay(1000); // time to move
             }
         }
     }

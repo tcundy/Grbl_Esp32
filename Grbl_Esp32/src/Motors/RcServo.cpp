@@ -8,7 +8,7 @@
 
     2020 -	Bart Dring
 
-    The servos travel will be mapped against the axis xMaxTravel
+    The servo's travel will be mapped against the axis with $X/MaxTravel
 
     The rotation can be inverted with by $Stepper/DirInvert
 
@@ -53,8 +53,8 @@ namespace Motors {
         ledcSetup(_channel_num, SERVO_PULSE_FREQ, SERVO_PULSE_RES_BITS);
         ledcAttachPin(_pwm_pin, _channel_num);
         _current_pwm_duty = 0;
-        is_active         = true;  // as opposed to NullMotors, this is a real motor
-        _can_home         = false; // this axis cannot be confensionally homed
+        is_active         = true;   // as opposed to NullMotors, this is a real motor
+        _can_home         = false;  // this axis cannot be confensionally homed
 
         set_axis_name();
         config_message();
@@ -78,7 +78,7 @@ namespace Motors {
             return;
 
         _current_pwm_duty = duty;
-        
+
         ledcWrite(_channel_num, duty);
     }
 
@@ -90,7 +90,7 @@ namespace Motors {
             _write_pwm(0);
     }
 
-    // Homing justs sets the new system position and the servo will move there 
+    // Homing justs sets the new system position and the servo will move there
     void RcServo::set_homing_mode(uint8_t homing_mask, bool isHoming) {
         float home_pos = 0.0;
 
@@ -100,6 +100,10 @@ namespace Motors {
             home_pos = _position_max;
 
         sys_position[axis_index] = home_pos * axis_settings[axis_index]->steps_per_mm->get();  // convert to steps
+
+        set_location(); // force the PWM to update now
+
+        vTaskDelay(SERVO_FULL_MOVE_TIME);  // give time to move
     }
 
     void RcServo::update() { set_location(); }
@@ -107,23 +111,22 @@ namespace Motors {
     void RcServo::set_location() {
         uint32_t servo_pulse_len;
         float    servo_pos, mpos, offset;
-        // skip location if we are in alarm mode
-        
+
         _get_calibration();
 
+        // skip location if we are in alarm mode
         if (sys.state == STATE_ALARM) {
             set_disable(true);
             return;
         }
 
-        mpos      = system_convert_axis_steps_to_mpos(sys_position, axis_index);            // get the axis machine position in mm
+        mpos = system_convert_axis_steps_to_mpos(sys_position, axis_index);  // get the axis machine position in mm
+        // TBD working in MPos
         offset    = 0;  // gc_state.coord_system[axis_index] + gc_state.coord_offset[axis_index];  // get the current axis work offset
-        servo_pos = mpos - offset;                                                          // determine the current work position
+        servo_pos = mpos - offset;  // determine the current work position
 
         // determine the pulse length
         servo_pulse_len = (uint32_t)mapConstrain(servo_pos, _position_min, _position_max, _pwm_pulse_min, _pwm_pulse_max);
-
-        //grbl_msg_sendf(CLIENT_SERIAL, MSG_LEVEL_INFO, "Servo Set %d", servo_pulse_len);
 
         _write_pwm(servo_pulse_len);
     }
@@ -132,8 +135,6 @@ namespace Motors {
 
     // this should change to use its own settings.
     void RcServo::_get_calibration() {
-       
-
 #ifndef HOMING_FORCE_POSITIVE_SPACE
         _position_min = -axis_settings[axis_index]->max_travel->get();
         _position_max = 0;
@@ -142,12 +143,8 @@ namespace Motors {
         _position_max = axis_settings[axis_index]->max_travel->get();
 #endif
 
-       
-
         _pwm_pulse_min = SERVO_MIN_PULSE;
         _pwm_pulse_max = SERVO_MAX_PULSE;
-
-        //grbl_msg_sendf(CLIENT_SERIAL, MSG_LEVEL_INFO, "Servo Pulse Min:%5.3f Max:%5.3f", _pwm_pulse_min, _pwm_pulse_max);
 
         if (bit_istrue(dir_invert_mask->get(), bit(axis_index))) {  // normal direction
             swap(_pwm_pulse_min, _pwm_pulse_max);
@@ -158,6 +155,5 @@ namespace Motors {
             _pwm_pulse_min *= _cal_min;
             _pwm_pulse_max *= _cal_max;
         }
-        
     }
 }

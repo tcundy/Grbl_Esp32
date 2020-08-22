@@ -127,6 +127,11 @@
 // #define Y2_STEP_PIN             GPIO_NUM_27  /* labeled Z */
 // #define Y2_DIRECTION_PIN        GPIO_NUM_33  /* labeled Z */
 
+// === Servos
+// #define Z_SERVO_PIN             GPIO_NUM_22
+// #define SERVO_Z_RANGE_MIN       1.0
+// #define SERVO_Z_RANGE_MAX       1.0
+
 
 // === Homing cycles
 // The default homing order is Z first (HOMING_CYCLE_0),
