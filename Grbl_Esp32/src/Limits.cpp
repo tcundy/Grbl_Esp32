@@ -80,6 +80,8 @@ void limits_go_home(uint8_t cycle_mask) {
     // Initialize plan data struct for homing motion. Spindle and coolant are disabled.
     motors_set_homing_mode(cycle_mask, true);  // tell motors homing is about to start
 
+    grbl_msg_sendf(CLIENT_SERIAL, MSG_LEVEL_INFO, "limits go home %d", cycle_mask);
+
     uint8_t idx;
 
     // remove any motor that cannot be homed from the mask

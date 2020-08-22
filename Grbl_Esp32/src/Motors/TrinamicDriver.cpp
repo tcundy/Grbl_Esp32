@@ -165,6 +165,7 @@ namespace Motors {
     }
 
     void TrinamicDriver::set_homing_mode(uint8_t homing_mask, bool isHoming) {
+        grbl_msg_sendf(CLIENT_SERIAL, MSG_LEVEL_INFO, "TRINAMIC set_homing_mode");
         _homing_mask = homing_mask;
         set_mode(isHoming);
     }
