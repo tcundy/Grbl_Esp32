@@ -49,9 +49,11 @@ namespace Motors {
         virtual bool test();
         virtual void set_axis_name();
         virtual void update();
+        virtual bool can_home();
 
         motor_class_id_t type_id;
         uint8_t          is_active = false;
+        
 
     protected:
         uint8_t axis_index;       // X_AXIS, etc
@@ -59,6 +61,7 @@ namespace Motors {
 
         bool    _showError;
         bool    _use_mpos = true;
+        bool    _can_home = true;
         uint8_t _homing_mask;
         char    _axis_name[10];  // this the name to use when reporting like "X" or "X2"
     };

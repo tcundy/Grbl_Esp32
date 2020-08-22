@@ -79,6 +79,21 @@ void limits_go_home(uint8_t cycle_mask) {
         return;  // Block if system reset has been issued.
     // Initialize plan data struct for homing motion. Spindle and coolant are disabled.
     motors_set_homing_mode(cycle_mask, true);  // tell motors homing is about to start
+
+    uint8_t idx;
+
+    // remove any motor that cannot be homed from the mask
+    for (idx = 0; idx < N_AXIS; idx++) {
+        if (bit_istrue(cycle_mask, bit(idx))) {
+            if (motor_can_home(idx)) {
+                bit_false(idx, cycle_mask);
+            }
+        }
+    }
+    // see if we removed all non homing motors
+    if (cycle_mask == 0)
+        return;
+
     plan_line_data_t  plan_data;
     plan_line_data_t* pl_data = &plan_data;
     memset(pl_data, 0, sizeof(plan_line_data_t));
@@ -91,7 +106,7 @@ void limits_go_home(uint8_t cycle_mask) {
     uint8_t step_pin[N_AXIS];
     float   target[N_AXIS];
     float   max_travel = 0.0;
-    uint8_t idx;
+
     for (idx = 0; idx < N_AXIS; idx++) {
         // Initialize step pin masks
         step_pin[idx] = get_step_pin_mask(idx);

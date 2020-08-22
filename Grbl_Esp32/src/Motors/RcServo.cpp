@@ -67,7 +67,9 @@ namespace Motors {
         ledcAttachPin(_pwm_pin, _channel_num);
         _current_pwm_duty = 0;
         is_active         = true;  // as opposed to NullMotors, this is a real motor
+        _can_home         = false; 
         set_axis_name();
+
         config_message();
     }
 
@@ -102,6 +104,10 @@ namespace Motors {
 
     void RcServo::set_homing_mode(bool is_homing, bool isHoming) {
         float home_pos = 0.0;
+
+        grbl_msg_sendf(CLIENT_SERIAL, MSG_LEVEL_INFO, "Servo set home");
+
+        return;
 
         if (!is_homing)
             return;
@@ -145,7 +151,17 @@ namespace Motors {
     // this should change to use its own settings.
     void RcServo::_get_calibration() {
         float _cal_min = 1.0;
-        float _cal_max = 1.0;
+        float _cal_max = 1.0;      
+
+#ifndef HOMING_FORCE_POSITIVE_SPACE
+        _position_min = -axis_settings[axis_index]->max_travel->get();
+        _position_max = 0;
+#else
+        _position_min = 0;
+        _position_max = axis_settings[axis_index]->max_travel->get();
+#endif
+
+        return;
 
         //grbl_msg_sendf(CLIENT_SERIAL, MSG_LEVEL_INFO, "Read settings");
 

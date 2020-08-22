@@ -25,7 +25,6 @@
 #define GRBL_VERSION "1.3a"
 #define GRBL_VERSION_BUILD "20200819"
 
-
 //#include <sdkconfig.h>
 #include <Arduino.h>
 #include <EEPROM.h>
@@ -87,10 +86,6 @@
 #endif
 
 #include "SolenoidPen.h"
-
-#ifdef USE_SERVO_AXES
-#    include "ServoAxis.h"
-#endif
 
 #ifdef USE_I2S_OUT
 #    include "I2SOut.h"

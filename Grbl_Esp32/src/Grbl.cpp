@@ -45,9 +45,6 @@ void grbl_init() {
 #ifdef USE_PEN_SERVO
     servo_init();
 #endif
-#ifdef USE_SERVO_AXES
-    init_servos();
-#endif
 #ifdef USE_PEN_SOLENOID
     solenoid_init();
 #endif

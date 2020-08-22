@@ -421,6 +421,10 @@ void readSgTask(void* pvParameters) {
     }
 }
 
+bool motor_can_home(uint8_t axis) {
+    return myMotor[axis][0]->can_home();
+}
+
 #ifdef USE_I2S_OUT
 //
 // Override default function and insert a short delay

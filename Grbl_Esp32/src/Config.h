@@ -119,11 +119,11 @@ Some features should not be changed. See notes below.
 //#define CONNECT_TO_SSID  "your SSID"
 //#define SSID_PASSWORD  "your SSID password"
 //CONFIGURE_EYECATCH_BEGIN (DO NOT MODIFY THIS LINE)
-#define ENABLE_BLUETOOTH  // enable bluetooth
+//#define ENABLE_BLUETOOTH  // enable bluetooth
 
 #define ENABLE_SD_CARD  // enable use of SD Card to run jobs
 
-#define ENABLE_WIFI  //enable wifi
+//#define ENABLE_WIFI  //enable wifi
 
 #if defined(ENABLE_WIFI) || defined(ENABLE_BLUETOOTH)
 #    define WIFI_OR_BLUETOOTH
@@ -244,13 +244,13 @@ Some features should not be changed. See notes below.
 // After homing, Grbl will set by default the entire machine space into negative space, as is typical
 // for professional CNC machines, regardless of where the limit switches are located. Uncomment this
 // define to force Grbl to always set the machine origin at the homed location despite switch orientation.
-// #define HOMING_FORCE_SET_ORIGIN // Uncomment to enable.
+//#define HOMING_FORCE_SET_ORIGIN // Uncomment to enable.
 
 // Uncomment this define to force Grbl to always set the machine origin at minimum travel positions of
 // the axes. Note: The $23 setting determines the direction of travel during homing. If an axes homes towards the
 // minimum, it will set the machine position to 0. If it homes towards the maximum it will set the
 // machine position to the max travel ($13x), minus the switch pull off ($27).
-// #define HOMING_FORCE_POSITIVE_SPACE // Uncomment to enable.
+//#define HOMING_FORCE_POSITIVE_SPACE // Uncomment to enable.
 
 // Number of blocks Grbl executes upon startup. These blocks are stored in EEPROM, where the size
 // and addresses are defined in settings.h. With the current settings, up to 2 startup blocks may
