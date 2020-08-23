@@ -86,8 +86,6 @@
 
 // Servo in socket #4
 #define A_SERVO_PIN             GPIO_NUM_14
-#define A_SERVO_RANGE_MIN       1.00
-#define A_SERVO_RANGE_MAX       1.00
 
 
 /*

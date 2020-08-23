@@ -52,12 +52,8 @@
 // C is a servo
 
 #define Z_SERVO_PIN             GPIO_NUM_22
-#define SERVO_Z_RANGE_MIN       1.0
-#define SERVO_Z_RANGE_MAX       1.0
 
 #define C_SERVO_PIN             GPIO_NUM_2
-#define SERVO_C_RANGE_MIN       1.0
-#define SERVO_C_RANGE_MAX       1.0
 
 // limit switches
 #define X_LIMIT_PIN             GPIO_NUM_21

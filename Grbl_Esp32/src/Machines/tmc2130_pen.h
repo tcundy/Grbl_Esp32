@@ -61,8 +61,6 @@
 // Define one of these 2 options for spindle or servo
 
     #define Z_SERVO_PIN                     GPIO_NUM_27 // comment this out if PWM spindle/laser control.
-    #define Z_SERVO_RANGE_MIN               1.0
-    #define Z_SERVO_RANGE_MAX               1.0
 
 
     //#define SPINDLE_TYPE        SPINDLE_TYPE_PWM

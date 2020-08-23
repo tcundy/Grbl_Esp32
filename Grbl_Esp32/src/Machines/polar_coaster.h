@@ -49,8 +49,6 @@
 #define STEPPERS_DISABLE_PIN    GPIO_NUM_17
 
 #define Z_SERVO_PIN             GPIO_NUM_16
-#define Z_SERVO_RANGE_MIN       0.0
-#define Z_SERVO_RANGE_MAX       5.0
 
 #define X_LIMIT_PIN             GPIO_NUM_4
 

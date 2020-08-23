@@ -56,8 +56,6 @@
 
 #ifdef USING_SERVO
     #define Z_SERVO_PIN             GPIO_NUM_27
-    #define Z_SERVO_RANGE_MIN       0.0
-    #define Z_SERVO_RANGE_MAX       10.0
 #endif
 
 #ifdef USING_SOLENOID

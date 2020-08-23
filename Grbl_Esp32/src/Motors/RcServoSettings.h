@@ -25,4 +25,7 @@
 
 #define SERVO_TIMER_INT_FREQ 50.0  // Hz This is the task frequency
 
-#define SERVO_FULL_MOVE_TIME 750 // rtos ticks
+#define SERVO_FULL_MOVE_TIME 750  // rtos ticks
+
+#define SERVO_DEFAULT_MIN_CAL 1.0  // for seetings
+#define SERVO_DEFAUL_MAX_CAL 1.0   //
