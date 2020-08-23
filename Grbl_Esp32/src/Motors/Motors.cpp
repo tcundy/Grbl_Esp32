@@ -140,7 +140,7 @@ void init_motors() {
     myMotor[A_AXIS][0] = new Motors::TrinamicDriver(
         A_AXIS, A_STEP_PIN, A_DIRECTION_PIN, A_DISABLE_PIN, A_CS_PIN, A_TRINAMIC_DRIVER, A_RSENSE, get_next_trinamic_driver_index());
 #elif defined(A_SERVO_PIN)
-    myMotor[A_AXIS][0] = new Motors::RcServo(A_AXIS, A_SERVO_PIN, SERVO_DEFAULT_MIN_CAL, SERVO_DEFAULT_MAX_CAL;
+    myMotor[A_AXIS][0] = new Motors::RcServo(A_AXIS, A_SERVO_PIN, SERVO_DEFAULT_MIN_CAL, SERVO_DEFAULT_MAX_CAL);
 #elif defined(A_UNIPOLAR)
     myMotor[A_AXIS][0] = new Motors::UnipolarMotor(A_AXIS, A_PIN_PHASE_0, A_PIN_PHASE_1, A_PIN_PHASE_2, A_PIN_PHASE_3);
 #elif defined(A_STEP_PIN)

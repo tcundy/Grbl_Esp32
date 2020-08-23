@@ -204,7 +204,7 @@ Some features should not be changed. See notes below.
 // #define CMD_STATUS_REPORT 0x81
 // #define CMD_CYCLE_START 0x82
 // #define CMD_FEED_HOLD 0x83
-#define CMD_SAFETY_DOOR 0x84
+#define CMD_SAFETY_DOOR '^'
 #define CMD_JOG_CANCEL 0x85
 #define CMD_DEBUG_REPORT 0x86    // Only when DEBUG enabled, sends debug report in '{}' braces.
 #define CMD_FEED_OVR_RESET 0x90  // Restores feed override value to 100%.
@@ -303,7 +303,7 @@ Some features should not be changed. See notes below.
 
 // After the safety door switch has been toggled and restored, this setting sets the power-up delay
 // between restoring the spindle and coolant and resuming the cycle.
-#define SAFETY_DOOR_SPINDLE_DELAY 4.0  // Float (seconds)
+#define SAFETY_DOOR_SPINDLE_DELAY 2.0  // Float (seconds)
 #define SAFETY_DOOR_COOLANT_DELAY 1.0  // Float (seconds)
 
 // Enable CoreXY kinematics. Use ONLY with CoreXY machines.
@@ -657,7 +657,7 @@ Some features should not be changed. See notes below.
 // NOTE: Still a work-in-progress. Machine coordinates must be in all negative space and
 // does not work with HOMING_FORCE_SET_ORIGIN enabled. Parking motion also moves only in
 // positive direction.
-//#define PARKING_ENABLE  // Default disabled. Uncomment to enable
+#define PARKING_ENABLE  // Default disabled. Uncomment to enable
 
 // Configure options for the parking motion, if enabled.
 #define PARKING_AXIS Z_AXIS            // Define which axis that performs the parking motion

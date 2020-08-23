@@ -27,7 +27,7 @@
 #ifdef N_AXIS
         #undef N_AXIS
 #endif
-#define N_AXIS 4
+#define N_AXIS 3
 
 #ifdef ENABLE_SD_CARD
     #undef ENABLE_SD_CARD
@@ -85,7 +85,7 @@
 #define Z_STEP_PIN              I2SO(10)
 
 // Servo in socket #4
-#define A_SERVO_PIN             GPIO_NUM_14
+//#define A_SERVO_PIN             GPIO_NUM_14
 
 
 /*
@@ -132,7 +132,7 @@
 #define X_LIMIT_PIN             GPIO_NUM_33
 #define Y_LIMIT_PIN             GPIO_NUM_32
 #define Z_LIMIT_PIN             GPIO_NUM_35
-#define PROBE_PIN               GPIO_NUM_34
+#define CONTROL_SAFETY_DOOR_PIN               GPIO_NUM_34
 
 #define DEFAULT_X_STEPS_PER_MM  800
 #define DEFAULT_Y_STEPS_PER_MM  800
